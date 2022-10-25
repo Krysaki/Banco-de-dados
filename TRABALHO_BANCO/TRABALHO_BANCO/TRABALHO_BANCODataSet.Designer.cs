@@ -1209,7 +1209,7 @@ namespace TRABALHO_BANCO {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public CLIENTERow AddCLIENTERow(int CLI_ID, string CLI_NOME, string CLI_CPF, long CLI_TELEFONE, string CLI_EMAIL) {
+            public CLIENTERow AddCLIENTERow(int CLI_ID, string CLI_NOME, string CLI_CPF, string CLI_TELEFONE, string CLI_EMAIL) {
                 CLIENTERow rowCLIENTERow = ((CLIENTERow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         CLI_ID,
@@ -1262,7 +1262,7 @@ namespace TRABALHO_BANCO {
                 base.Columns.Add(this.columnCLI_NOME);
                 this.columnCLI_CPF = new global::System.Data.DataColumn("CLI_CPF", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCLI_CPF);
-                this.columnCLI_TELEFONE = new global::System.Data.DataColumn("CLI_TELEFONE", typeof(long), null, global::System.Data.MappingType.Element);
+                this.columnCLI_TELEFONE = new global::System.Data.DataColumn("CLI_TELEFONE", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCLI_TELEFONE);
                 this.columnCLI_EMAIL = new global::System.Data.DataColumn("CLI_EMAIL", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCLI_EMAIL);
@@ -1274,7 +1274,7 @@ namespace TRABALHO_BANCO {
                 this.columnCLI_NOME.MaxLength = 150;
                 this.columnCLI_CPF.AllowDBNull = false;
                 this.columnCLI_CPF.MaxLength = 14;
-                this.columnCLI_TELEFONE.AllowDBNull = false;
+                this.columnCLI_TELEFONE.MaxLength = 30;
                 this.columnCLI_EMAIL.MaxLength = 50;
             }
             
@@ -2218,9 +2218,14 @@ namespace TRABALHO_BANCO {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public long CLI_TELEFONE {
+            public string CLI_TELEFONE {
                 get {
-                    return ((long)(this[this.tableCLIENTE.CLI_TELEFONEColumn]));
+                    try {
+                        return ((string)(this[this.tableCLIENTE.CLI_TELEFONEColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CLI_TELEFONE\' in table \'CLIENTE\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableCLIENTE.CLI_TELEFONEColumn] = value;
@@ -2241,6 +2246,18 @@ namespace TRABALHO_BANCO {
                 set {
                     this[this.tableCLIENTE.CLI_EMAILColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsCLI_TELEFONENull() {
+                return this.IsNull(this.tableCLIENTE.CLI_TELEFONEColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetCLI_TELEFONENull() {
+                this[this.tableCLIENTE.CLI_TELEFONEColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3411,12 +3428,13 @@ SELECT CAR_PLACA, CAR_ANOFABRIC, CAR_MODCOD, CAR_CLIID FROM CARRO WHERE (CAR_PLA
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[CLIENTE] WHERE (([CLI_ID] = @Original_CLI_ID) AND ([CLI_NOME] = @Original_CLI_NOME) AND ([CLI_CPF] = @Original_CLI_CPF) AND ([CLI_TELEFONE] = @Original_CLI_TELEFONE) AND ((@IsNull_CLI_EMAIL = 1 AND [CLI_EMAIL] IS NULL) OR ([CLI_EMAIL] = @Original_CLI_EMAIL)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[CLIENTE] WHERE (([CLI_ID] = @Original_CLI_ID) AND ([CLI_NOME] = @Original_CLI_NOME) AND ([CLI_CPF] = @Original_CLI_CPF) AND ((@IsNull_CLI_TELEFONE = 1 AND [CLI_TELEFONE] IS NULL) OR ([CLI_TELEFONE] = @Original_CLI_TELEFONE)) AND ((@IsNull_CLI_EMAIL = 1 AND [CLI_EMAIL] IS NULL) OR ([CLI_EMAIL] = @Original_CLI_EMAIL)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CLI_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CLI_NOME", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_NOME", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CLI_CPF", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_CPF", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CLI_TELEFONE", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_TELEFONE", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CLI_TELEFONE", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_TELEFONE", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CLI_TELEFONE", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_TELEFONE", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CLI_EMAIL", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_EMAIL", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CLI_EMAIL", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_EMAIL", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
@@ -3429,22 +3447,23 @@ SELECT CAR_PLACA, CAR_ANOFABRIC, CAR_MODCOD, CAR_CLIID FROM CARRO WHERE (CAR_PLA
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CLI_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CLI_NOME", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_NOME", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CLI_CPF", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_CPF", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CLI_TELEFONE", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_TELEFONE", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CLI_TELEFONE", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_TELEFONE", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CLI_EMAIL", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_EMAIL", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[CLIENTE] SET [CLI_ID] = @CLI_ID, [CLI_NOME] = @CLI_NOME, [CLI_CPF] = @CLI_CPF, [CLI_TELEFONE] = @CLI_TELEFONE, [CLI_EMAIL] = @CLI_EMAIL WHERE (([CLI_ID] = @Original_CLI_ID) AND ([CLI_NOME] = @Original_CLI_NOME) AND ([CLI_CPF] = @Original_CLI_CPF) AND ([CLI_TELEFONE] = @Original_CLI_TELEFONE) AND ((@IsNull_CLI_EMAIL = 1 AND [CLI_EMAIL] IS NULL) OR ([CLI_EMAIL] = @Original_CLI_EMAIL)));
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[CLIENTE] SET [CLI_ID] = @CLI_ID, [CLI_NOME] = @CLI_NOME, [CLI_CPF] = @CLI_CPF, [CLI_TELEFONE] = @CLI_TELEFONE, [CLI_EMAIL] = @CLI_EMAIL WHERE (([CLI_ID] = @Original_CLI_ID) AND ([CLI_NOME] = @Original_CLI_NOME) AND ([CLI_CPF] = @Original_CLI_CPF) AND ((@IsNull_CLI_TELEFONE = 1 AND [CLI_TELEFONE] IS NULL) OR ([CLI_TELEFONE] = @Original_CLI_TELEFONE)) AND ((@IsNull_CLI_EMAIL = 1 AND [CLI_EMAIL] IS NULL) OR ([CLI_EMAIL] = @Original_CLI_EMAIL)));
 SELECT CLI_ID, CLI_NOME, CLI_CPF, CLI_TELEFONE, CLI_EMAIL FROM CLIENTE WHERE (CLI_ID = @CLI_ID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CLI_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_ID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CLI_NOME", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_NOME", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CLI_CPF", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_CPF", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CLI_TELEFONE", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_TELEFONE", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CLI_TELEFONE", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_TELEFONE", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CLI_EMAIL", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_EMAIL", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CLI_ID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_ID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CLI_NOME", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_NOME", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CLI_CPF", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_CPF", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CLI_TELEFONE", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_TELEFONE", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CLI_TELEFONE", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_TELEFONE", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CLI_TELEFONE", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_TELEFONE", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CLI_EMAIL", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_EMAIL", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CLI_EMAIL", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CLI_EMAIL", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
@@ -3523,7 +3542,7 @@ SELECT CLI_ID, CLI_NOME, CLI_CPF, CLI_TELEFONE, CLI_EMAIL FROM CLIENTE WHERE (CL
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_CLI_ID, string Original_CLI_NOME, string Original_CLI_CPF, long Original_CLI_TELEFONE, string Original_CLI_EMAIL) {
+        public virtual int Delete(int Original_CLI_ID, string Original_CLI_NOME, string Original_CLI_CPF, string Original_CLI_TELEFONE, string Original_CLI_EMAIL) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_CLI_ID));
             if ((Original_CLI_NOME == null)) {
                 throw new global::System.ArgumentNullException("Original_CLI_NOME");
@@ -3537,14 +3556,21 @@ SELECT CLI_ID, CLI_NOME, CLI_CPF, CLI_TELEFONE, CLI_EMAIL FROM CLIENTE WHERE (CL
             else {
                 this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_CLI_CPF));
             }
-            this.Adapter.DeleteCommand.Parameters[3].Value = ((long)(Original_CLI_TELEFONE));
-            if ((Original_CLI_EMAIL == null)) {
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[5].Value = global::System.DBNull.Value;
+            if ((Original_CLI_TELEFONE == null)) {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((string)(Original_CLI_EMAIL));
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_CLI_TELEFONE));
+            }
+            if ((Original_CLI_EMAIL == null)) {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_CLI_EMAIL));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3566,7 +3592,7 @@ SELECT CLI_ID, CLI_NOME, CLI_CPF, CLI_TELEFONE, CLI_EMAIL FROM CLIENTE WHERE (CL
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int CLI_ID, string CLI_NOME, string CLI_CPF, long CLI_TELEFONE, string CLI_EMAIL) {
+        public virtual int Insert(int CLI_ID, string CLI_NOME, string CLI_CPF, string CLI_TELEFONE, string CLI_EMAIL) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(CLI_ID));
             if ((CLI_NOME == null)) {
                 throw new global::System.ArgumentNullException("CLI_NOME");
@@ -3580,7 +3606,12 @@ SELECT CLI_ID, CLI_NOME, CLI_CPF, CLI_TELEFONE, CLI_EMAIL FROM CLIENTE WHERE (CL
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((string)(CLI_CPF));
             }
-            this.Adapter.InsertCommand.Parameters[3].Value = ((long)(CLI_TELEFONE));
+            if ((CLI_TELEFONE == null)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(CLI_TELEFONE));
+            }
             if ((CLI_EMAIL == null)) {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
@@ -3607,7 +3638,7 @@ SELECT CLI_ID, CLI_NOME, CLI_CPF, CLI_TELEFONE, CLI_EMAIL FROM CLIENTE WHERE (CL
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int CLI_ID, string CLI_NOME, string CLI_CPF, long CLI_TELEFONE, string CLI_EMAIL, int Original_CLI_ID, string Original_CLI_NOME, string Original_CLI_CPF, long Original_CLI_TELEFONE, string Original_CLI_EMAIL) {
+        public virtual int Update(int CLI_ID, string CLI_NOME, string CLI_CPF, string CLI_TELEFONE, string CLI_EMAIL, int Original_CLI_ID, string Original_CLI_NOME, string Original_CLI_CPF, string Original_CLI_TELEFONE, string Original_CLI_EMAIL) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(CLI_ID));
             if ((CLI_NOME == null)) {
                 throw new global::System.ArgumentNullException("CLI_NOME");
@@ -3621,7 +3652,12 @@ SELECT CLI_ID, CLI_NOME, CLI_CPF, CLI_TELEFONE, CLI_EMAIL FROM CLIENTE WHERE (CL
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(CLI_CPF));
             }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((long)(CLI_TELEFONE));
+            if ((CLI_TELEFONE == null)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(CLI_TELEFONE));
+            }
             if ((CLI_EMAIL == null)) {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
@@ -3641,14 +3677,21 @@ SELECT CLI_ID, CLI_NOME, CLI_CPF, CLI_TELEFONE, CLI_EMAIL FROM CLIENTE WHERE (CL
             else {
                 this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_CLI_CPF));
             }
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((long)(Original_CLI_TELEFONE));
-            if ((Original_CLI_EMAIL == null)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+            if ((Original_CLI_TELEFONE == null)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_CLI_EMAIL));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Original_CLI_TELEFONE));
+            }
+            if ((Original_CLI_EMAIL == null)) {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(Original_CLI_EMAIL));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3670,7 +3713,7 @@ SELECT CLI_ID, CLI_NOME, CLI_CPF, CLI_TELEFONE, CLI_EMAIL FROM CLIENTE WHERE (CL
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string CLI_NOME, string CLI_CPF, long CLI_TELEFONE, string CLI_EMAIL, int Original_CLI_ID, string Original_CLI_NOME, string Original_CLI_CPF, long Original_CLI_TELEFONE, string Original_CLI_EMAIL) {
+        public virtual int Update(string CLI_NOME, string CLI_CPF, string CLI_TELEFONE, string CLI_EMAIL, int Original_CLI_ID, string Original_CLI_NOME, string Original_CLI_CPF, string Original_CLI_TELEFONE, string Original_CLI_EMAIL) {
             return this.Update(Original_CLI_ID, CLI_NOME, CLI_CPF, CLI_TELEFONE, CLI_EMAIL, Original_CLI_ID, Original_CLI_NOME, Original_CLI_CPF, Original_CLI_TELEFONE, Original_CLI_EMAIL);
         }
     }
